@@ -10,18 +10,24 @@ def render(tpl_path, context):
         loader=jinja2.FileSystemLoader(path or './')
     ).get_template(filename).render(context) + "\n"
 
+def get_page():
+        
+
 # Class holding all URLs and functions
 class Webinterface(object):
 
     # Home
     @cherrypy.expose
     def index(self):
-        return render('files/head.html', "") + render("files/index.html", "") + render("files/footer.html", "")
+        if not cherrypy.session.get("username"):
+            raise cherrypy.HTTPRedirect("/login/")
+        else:
+            return render('files/head.html', "") + render("files/navbar.html", "") + render("files/index.html", "") + render("files/footer.html", "")
 
     # Login
     @cherrypy.expose
     def login(self):
-        return 'test'
+        return render('files/head.html', "") + render("files/navbar.html", "") + render("files/login.html", "") + render("files/footer.html", "")
 
 if __name__ == '__main__':
     # Set the root directory dynamically
@@ -33,7 +39,11 @@ if __name__ == '__main__':
         '/': {
             'tools.staticdir.on': True,
             'tools.staticdir.dir': root,
-            'tools.staticdir.index': 'index.html'
+            'tools.staticdir.index': 'index.html',
+            'tools.sessions.on':  True,
+            'tools.sessions.storage_type': 'File',
+            'tools.sessions.storage_path': "sessions",
+            'tools.sessions.timeout': 60
         }
     }
     # Start the server
