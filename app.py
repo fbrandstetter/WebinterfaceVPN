@@ -1,12 +1,35 @@
 #/bin/python
-import cherrypy
 
+# Required packages
+import cherrypy, random, string, os
 
-class HelloWorld(object):
+# Class holding all URLs and functions
+class Webinterface(object):
+
+    # Home
     @cherrypy.expose
     def index(self):
-        return "Hello world!"
+        return open("files/head.html")
+        return open("files/index.html")
+        return open("files/footer.html")
 
+    # Login
+    @cherrypy.expose
+    def login(self):
+        return 'test'
 
 if __name__ == '__main__':
-    cherrypy.quickstart(HelloWorld())
+    # Set the root directory dynamically
+    root = os.path.dirname(os.path.abspath(__file__))
+    # Listen on 0.0.0.0
+    cherrypy.server.socket_host = '0.0.0.0'
+    # Various configs to serve static files
+    conf = {
+        '/': {
+            'tools.staticdir.on': True,
+            'tools.staticdir.dir': root,
+            'tools.staticdir.index': 'index.html'
+        }
+    }
+    # Start the server
+    cherrypy.quickstart(Webinterface(), '/', conf)
