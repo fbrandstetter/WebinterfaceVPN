@@ -2,6 +2,13 @@
 
 # Required packages
 import cherrypy, random, string, os
+import jinja2
+
+def render(tpl_path, context):
+    path, filename = os.path.split(tpl_path)
+    return jinja2.Environment(
+        loader=jinja2.FileSystemLoader(path or './')
+    ).get_template(filename).render(context) + "\n"
 
 # Class holding all URLs and functions
 class Webinterface(object):
@@ -9,9 +16,7 @@ class Webinterface(object):
     # Home
     @cherrypy.expose
     def index(self):
-        return open("files/head.html")
-        return open("files/index.html")
-        return open("files/footer.html")
+        return render('files/head.html', "") + render("files/index.html", "") + render("files/footer.html", "")
 
     # Login
     @cherrypy.expose
