@@ -1,0 +1,36 @@
+  <div class="container">
+    <div class="card" style="margin-top: 40px;">
+      <div class="card-block">
+        <h2>Overview</h2>
+        <br>
+        <a href="/new-server/" class="btn btn-primary">Add server</a>
+      </div>
+    </div>
+    {% if not servers %}
+      <div class="alert alert-success"><b>You didn't add any servers yet.</div>
+    {% else %}
+    <div class="card" style="padding-bottom: 0px;">
+      <table class="table table-striped" style="padding-bottom: 0px; margin-bottom: 0px;">
+        <thead>
+          <tr>
+            <th>IP Address</th>
+            <th>Username</th>
+            <th>Location</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for server in servers %}
+            <tr>
+              <td>{{ server[0] }}</td>
+              <td>{{ server[1] }}</td>
+              <td>{{ server[2] }}</td>
+              <td>{{ server[3] }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+
+  </div>

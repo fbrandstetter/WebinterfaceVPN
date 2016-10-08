@@ -1,0 +1,29 @@
+  <nav class="navbar navbar-dark bg-inverse" style="border-radius: 0px;">
+    <div class="container">
+      <a class="navbar-brand" href="#">Webinterface VPN</a>
+      <ul class="nav navbar-nav pull-xs-right">
+        {% if page == "login" %}
+        <li class="nav-item {% if page == "login" %}active{% endif %}">
+          <a class="nav-link" href="/login/">Login</a>
+        </li>
+        {% endif %}
+        {% if page != "login" %}
+        <li class="nav-item {% if page == "home" %}active{% endif %}">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item {% if page == "servers" %}active{% endif %}{% if page == "new-server" %}active{% endif %}">
+          <a class="nav-link" href="/servers/">Servers</a>
+        </li>
+        <li class="nav-item {% if page == "tunnels" %}active{% endif %}">
+          <a class="nav-link" href="/tunnels/">Tunnels</a>
+        </li>
+        <li class="nav-item {% if page == "proxy" %}active{% endif %}">
+          <a class="nav-link" href="/proxy/">Proxy</a>
+        </li>
+        <li class="nav-item {% if page == "api.signout" %}active{% endif %}">
+          <a class="nav-link" href="/api/signout/">Sign Out</a>
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
